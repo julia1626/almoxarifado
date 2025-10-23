@@ -1,36 +1,107 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🧰 Sistema de Gestão de Estoque – Fabricante de Ferramentas
 
-## Getting Started
+## 📖 Contextualização
+Uma fabricante de ferramentas e equipamentos manuais enfrenta desafios críticos na gestão de estoque devido à ausência de um sistema informatizado para controlar a entrada e saída de materiais. Isso causa falta de produtos em momentos cruciais da produção e excesso de estoque, gerando custos elevados e risco de obsolescência.  
 
-First, run the development server:
+O sistema foi desenvolvido para resolver esses problemas, permitindo o controle eficiente de produtos com diferentes características, tamanhos e materiais — como martelos com cabeças e cabos variados, e chaves de fenda com revestimento isolante ou ponta imantada.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🎯 Objetivo do Sistema
+Desenvolver uma aplicação web que permita:
+- Cadastro e gerenciamento de produtos.
+- Registro de movimentações de entrada e saída.
+- Monitoramento automático do estoque mínimo, com alertas.
+- Rastreamento completo das operações, registrando usuário e data.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🧩 Tecnologias Utilizadas
 
-## Learn More
+### 💻 Front-end e Back-end
+- **Framework:** Next.js 16 (TypeScript)
+- **Linguagem:** TypeScript
+- **Estilo:** Tailwind CSS + CSS customizado
+- **Gerenciamento de estado:** React Hooks
+- **Autenticação:** JWT (JSON Web Token)
 
-To learn more about Next.js, take a look at the following resources:
+### 🗄️ Banco de Dados
+- **SGBD:** MongoDB 6.0
+- **ODM:** Mongoose
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### ⚙️ Infraestrutura
+- **Sistema Operacional:** Windows 11
+- **Node.js:** v20.x
+- **NPM:** v10.x
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 📝 Requisitos Funcionais
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. **Autenticação de Usuário**
+   - Login com verificação de credenciais.
+   - Exibição do nome do usuário logado.
+   - Logout com redirecionamento à tela de login.
+   - Mensagens claras em caso de falha.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+2. **Interface Principal**
+   - Menu para acessar Cadastro de Produto e Gestão de Estoque.
+   - Exibição do nome do usuário ativo.
+
+3. **Cadastro de Produto**
+   - Listagem automática de produtos em tabela.
+   - Campo de busca para filtrar produtos.
+   - CRUD completo (criar, editar, excluir).
+   - Validação de dados obrigatórios e formato correto.
+   - Botão para retornar à tela principal.
+
+4. **Gestão de Estoque**
+   - Listagem de produtos em ordem alfabética (com algoritmo de ordenação).
+   - Registro de movimentações de entrada e saída.
+   - Registro da data e do responsável.
+   - Alerta automático quando estoque ficar abaixo do mínimo configurado.
+
+5. **Histórico e Rastreamento**
+   - Cada movimentação deve ser registrada para auditoria e rastreabilidade.
+
+---
+
+## Testes de Software ##
+    - Autenticação de usuário (login correto/incorreto).
+    - Cadastro, edição e exclusão de produtos.
+    - Entrada e saída de estoque com atualização correta.
+    - Alertas de estoque mínimo.
+    - Rastreamento de movimentações com data e usuário.
+    - Pesquisa de produtos e ordenação alfabética.
+
+## 📊 Diagrama Entidade-Relacionamento (DER)
+
+```text
+Usuário
+---------
+_id (PK)
+nome
+email
+senhaHash
+nivelAcesso
+
+Produto
+---------
+_id (PK)
+nome
+tipo
+materialCabeca
+materialCabo
+caracteristicas
+peso
+estoqueMinimo
+quantidadeAtual
+
+Movimentacao
+-------------
+_id (PK)
+produtoId (FK -> Produto._id)
+usuarioId (FK -> Usuario._id)
+tipoMovimentacao (Entrada | Saída)
+quantidade
+data
