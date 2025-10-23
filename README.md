@@ -109,3 +109,48 @@ erDiagram
 ````
 
 ---
+
+## Script de Criação e População do Banco de Dados (MySQL) ##
+CREATE DATABASE almoxarifado;
+USE almoxarifado;
+
+CREATE TABLE usuario (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(100) NOT NULL,
+  email VARCHAR(100) UNIQUE NOT NULL,
+  senha VARCHAR(255) NOT NULL,
+  cargo ENUM('Administrador', 'Operador') DEFAULT 'Operador'
+);
+
+CREATE TABLE produto (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(100) NOT NULL,
+  descricao TEXT,
+  categoria VARCHAR(100),
+  unidade VARCHAR(20),
+  quantidade INT DEFAULT 0,
+  estoque_minimo INT DEFAULT 5
+);
+
+CREATE TABLE movimentacao (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  tipo ENUM('Entrada', 'Saída') NOT NULL,
+  quantidade INT NOT NULL,
+  data DATETIME DEFAULT CURRENT_TIMESTAMP,
+  produto_id INT,
+  usuario_id INT,
+  FOREIGN KEY (produto_id) REFERENCES produto(id),
+  FOREIGN KEY (usuario_id) REFERENCES usuario(id)
+);
+
+INSERT INTO usuario (nome, email, senha, cargo) VALUES
+('Admin', 'admin@empresa.com', 'senha_hash', 'Administrador'),
+('João Silva', 'joao@empresa.com', 'senha_hash', 'Operador');
+
+INSERT INTO produto (nome, descricao, categoria, unidade, quantidade, estoque_minimo) VALUES
+('Papel A4', 'Resma 500 folhas', 'Material de Escritório', 'Un', 50, 10),
+('Tinta Azul', 'Cartucho impressora HP', 'Insumos', 'Un', 20, 5);
+
+INSERT INTO movimentacao (tipo, quantidade, produto_id, usuario_id) VALUES
+('Saída', 5, 1, 2),
+('Entrada', 10, 2, 1);
