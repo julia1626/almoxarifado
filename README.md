@@ -76,32 +76,34 @@ Desenvolver uma aplicação web que permita:
 
 ## 📊 Diagrama Entidade-Relacionamento (DER)
 
-```text
-Usuário
----------
-_id (PK)
-nome
-email
-senhaHash
-nivelAcesso
+erDiagram
+    PRODUTO {
+        int id
+        string nome
+        string descricao
+        string categoria
+        string unidade
+        int quantidade
+        int estoque_minimo
+    }
 
-Produto
----------
-_id (PK)
-nome
-tipo
-materialCabeca
-materialCabo
-caracteristicas
-peso
-estoqueMinimo
-quantidadeAtual
+    MOVIMENTACAO {
+        int id
+        string tipo
+        int quantidade
+        datetime data
+        int produto_id
+        int usuario_id
+    }
 
-Movimentacao
--------------
-_id (PK)
-produtoId (FK -> Produto._id)
-usuarioId (FK -> Usuario._id)
-tipoMovimentacao (Entrada | Saída)
-quantidade
-data
+    USUARIO {
+        int id
+        string nome
+        string email
+        string senha
+        string cargo
+    }
+
+    PRODUTO ||--o{ MOVIMENTACAO : possui
+    USUARIO ||--o{ MOVIMENTACAO : realiza
+
