@@ -119,7 +119,7 @@ CREATE TABLE usuario (
   nome VARCHAR(100) NOT NULL,
   email VARCHAR(100) UNIQUE NOT NULL,
   senha VARCHAR(255) NOT NULL,
-  cargo ENUM('Administrador', 'Operador') DEFAULT 'Operador'
+  cargo ENUM('Administrador')
 );
 
 CREATE TABLE produto (
@@ -144,8 +144,7 @@ CREATE TABLE movimentacao (
 );
 
 INSERT INTO usuario (nome, email, senha, cargo) VALUES
-('Admin', 'admin@empresa.com', 'senha_hash', 'Administrador'),
-('João Silva', 'joao@empresa.com', 'senha_hash', 'Operador');
+('Admin', 'admin@gmail.com', 'senha_hash', 'Administrador');
 
 INSERT INTO produto (nome, descricao, categoria, unidade, quantidade, estoque_minimo) VALUES
 ('Papel A4', 'Resma 500 folhas', 'Material de Escritório', 'Un', 50, 10),
