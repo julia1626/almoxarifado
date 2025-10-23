@@ -75,7 +75,7 @@ Desenvolver uma aplicação web que permita:
     - Pesquisa de produtos e ordenação alfabética.
 
 ## 📊 Diagrama Entidade-Relacionamento (DER)
-
+```mermaid
 erDiagram
     PRODUTO {
         int id
@@ -106,4 +106,6 @@ erDiagram
 
     PRODUTO ||--o{ MOVIMENTACAO : possui
     USUARIO ||--o{ MOVIMENTACAO : realiza
+````
 
+---
